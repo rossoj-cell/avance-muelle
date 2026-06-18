@@ -9,22 +9,21 @@
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#F0F2F5;color:#1a1a2e;min-height:100vh}
 .header{background:#1B3A6B;color:#fff;padding:14px 16px 12px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.25)}
 .header-top{display:flex;align-items:center;justify-content:space-between}
-.header h1{font-size:15px;font-weight:600;letter-spacing:.2px}
+.header h1{font-size:15px;font-weight:600}
 .header p{font-size:11px;opacity:.6;margin-top:1px}
 .sync-wrap{display:flex;align-items:center;gap:6px;flex-shrink:0}
 .sync-dot{width:8px;height:8px;border-radius:50%;background:#4CAF50;flex-shrink:0;transition:background .3s}
 .sync-dot.loading{background:#FF9800;animation:pulse .8s infinite}
 .sync-dot.error{background:#f44336}
-.sync-lbl{font-size:10px;opacity:.7}
+.sync-lbl{font-size:10px;opacity:.75}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 .piso-bar{background:#fff;padding:10px 14px;border-bottom:1px solid #e8eaed;display:flex;align-items:center;gap:10px}
 .piso-bar label{font-size:12px;color:#5f6368;font-weight:500;white-space:nowrap}
 .piso-bar select{flex:1;padding:9px 32px 9px 12px;font-size:15px;font-weight:600;border:1.5px solid #1B3A6B;border-radius:10px;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%231B3A6B' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 10px center;-webkit-appearance:none;appearance:none;color:#1B3A6B}
-.piso-bar select:disabled{opacity:.5;cursor:not-allowed}
+.piso-bar select:disabled{opacity:.5}
 .tabs{display:flex;background:#fff;border-bottom:1px solid #e8eaed}
 .tab{flex:1;padding:11px 8px;font-size:13px;font-weight:500;text-align:center;cursor:pointer;border:none;background:none;color:#5f6368;border-bottom:3px solid transparent;transition:all .15s}
 .tab.active{color:#1B3A6B;border-bottom-color:#1B3A6B}
-.tab:disabled{opacity:.4;cursor:not-allowed}
 .stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:12px 14px 8px}
 .stat{background:#fff;border-radius:12px;padding:10px 12px;text-align:center}
 .stat-val{font-size:20px;font-weight:700;line-height:1}
@@ -48,6 +47,8 @@ td.td-inp{padding:0;vertical-align:middle}
 td.td-inp input{display:block;width:100%;padding:9px 2px;font-size:13px;font-weight:600;text-align:center;border:none;border-right:.5px solid #e8eaed;background:transparent;color:#1a1a2e;outline:none;-moz-appearance:textfield;cursor:pointer}
 td.td-inp input::-webkit-inner-spin-button,td.td-inp input::-webkit-outer-spin-button{-webkit-appearance:none}
 td.td-inp input:focus{background:#E8F0FE;color:#1B3A6B;box-shadow:inset 0 0 0 2px #1B3A6B}
+td.td-inp.na{background:#F5F5F5}
+td.td-inp.na input{color:#ccc;cursor:not-allowed;pointer-events:none}
 td.td-inp input.c-done{background:#DCFCE7;color:#166534}
 td.td-inp input.c-pend{background:#FEF9C3;color:#854D0E}
 td.td-inp input.c-crit{background:#FEE2E2;color:#991B1B}
@@ -58,7 +59,7 @@ td.td-avg{text-align:center;font-size:12px;font-weight:700;padding:4px 2px;borde
 .ac-head h3{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
 .ac-badge{font-size:10px;padding:2px 8px;border-radius:20px;background:rgba(255,255,255,.2)}
 .ac-tbl-wrap{border:1px solid #e8eaed;border-top:none;border-radius:0 0 12px 12px;overflow:hidden;background:#fff}
-.ac-tbl-wrap table thead th{background:#2A4D87;font-size:11px}
+.ac-tbl-wrap table thead th{background:#2A4D87}
 .ac-tbl-wrap table thead th.th-part{width:150px}
 .ac-tbl-wrap td.td-stat{text-align:center;padding:4px;border-left:.5px solid #e8eaed;font-size:16px}
 .save-wrap{padding:6px 14px 24px}
@@ -78,9 +79,9 @@ td.td-avg{text-align:center;font-size:12px;font-weight:700;padding:4px 2px;borde
 .empty{text-align:center;padding:48px 24px;color:#9AA3AF}
 .empty svg{width:48px;height:48px;margin-bottom:12px;opacity:.4}
 .empty p{font-size:14px}
-.error-screen{margin:16px 14px;background:#FEF2F2;border:1px solid #FECACA;border-radius:12px;padding:16px;text-align:center}
-.error-screen p{font-size:13px;color:#991B1B;margin-bottom:10px}
-.btn-retry{background:#1B3A6B;color:#fff;border:none;padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer}
+.error-screen{margin:16px 14px;background:#FEF2F2;border:1px solid #FECACA;border-radius:12px;padding:20px;text-align:center}
+.error-screen p{font-size:13px;color:#991B1B;margin-bottom:12px;line-height:1.5}
+.btn-retry{background:#1B3A6B;color:#fff;border:none;padding:10px 24px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer}
 </style>
 </head>
 <body>
@@ -101,65 +102,71 @@ td.td-avg{text-align:center;font-size:12px;font-weight:700;padding:4px 2px;borde
 <div class="piso-bar">
   <label>Piso</label>
   <select id="piso-sel" disabled>
-    <option value="">— Cargando datos... —</option>
+    <option value="">— Cargando... —</option>
   </select>
 </div>
 
 <div class="tabs">
-  <button class="tab active" data-tab="dptos" disabled>Departamentos</button>
-  <button class="tab" data-tab="ac" disabled>Áreas comunes</button>
+  <button class="tab active" data-tab="dptos">Departamentos</button>
+  <button class="tab" data-tab="ac">Áreas comunes</button>
 </div>
 
 <div id="main">
   <div class="loading-screen">
     <div class="big-spinner"></div>
-    <p>Cargando avances del Sheet...</p>
-    <small>Conectando con Google Sheets</small>
+    <p>Cargando avances desde Google Sheets...</p>
+    <small>Esto puede tomar unos segundos</small>
   </div>
 </div>
-
 <div class="toast" id="toast"></div>
 
 <script>
 const WEBAPP = 'https://script.google.com/macros/s/AKfycbxZAG6dkbevzlz7yMJivJlYAuFhDMOiv46CF61kJ-gK7Yp-x2CaDO6CecELWQzlyPZx/exec';
 
-const PISOS = Array.from({length:28},(_,i)=>29-i);
+const PISOS = Array.from({length:28},(_,i)=>29-i); // 29,28,...,2
+
+// ── Sheet structure ───────────────────────────────────────────────────────
+// Hoja "Dptos": headers row 3, data starts row 4
+// Row for piso P, partida with start S: S + (29 - P)
+// Cols: %A=F(6), %B=G(7), %C=H(8), %D=I(9), %E=J(10), %F=K(11), %G=L(12)
+// Piso 29: only D,E,F,G (cols 9,10,11,12) — A,B,C are N/A
+
 const DPTOS_ALL = ['A','B','C','D','E','F','G'];
 const DPTOS_P29 = ['D','E','F','G'];
+const DPTO_COL  = {A:6,B:7,C:8,D:9,E:10,F:11,G:12};
 
 const PARTIDAS = [
-  {name:'Porcelanato',        full:'Porcelanato deptos',                    start:4},
-  {name:'Muebles cocina',     full:'Muebles de cocina',                     start:33},
-  {name:'Closets',            full:'Closets',                               start:62},
-  {name:'Cerámico muros',     full:'Cerámico muros deptos',                 start:91},
-  {name:'Puerta acceso',      full:'Puerta acceso deptos',                  start:120},
-  {name:'Puertas interior',   full:'Puertas interior',                      start:149},
-  {name:'Guardapolvos',       full:'Guardapolvos',                          start:178},
-  {name:'Papel mural',        full:'Papel mural',                           start:207},
-  {name:'Vanitorio',          full:'Vanitorio',                             start:236},
-  {name:'Mamparas baño',      full:'Mamparas de baño',                      start:265},
-  {name:'Calefón',            full:'Calefón',                               start:294},
-  {name:'Espejos baños',      full:'Espejos sobrepuestos baños',            start:323},
-  {name:'WC descarga muro',   full:'WC descarga a muro',                    start:352},
-  {name:'Cornisas',           full:'Cornisas',                              start:381},
-  {name:'Pintura cielos',     full:'Pintura cielos (húmedos y secos)',      start:410},
+  {name:'Porcelanato',       full:'Porcelanato deptos',                  start:4},
+  {name:'Muebles cocina',    full:'Muebles de cocina',                   start:33},
+  {name:'Closets',           full:'Closets',                             start:62},
+  {name:'Cerámico muros',    full:'Cerámico muros deptos',               start:91},
+  {name:'Puerta acceso',     full:'Puerta acceso deptos',                start:120},
+  {name:'Puertas interior',  full:'Puertas interior',                    start:149},
+  {name:'Guardapolvos',      full:'Guardapolvos',                        start:178},
+  {name:'Papel mural',       full:'Papel mural',                         start:207},
+  {name:'Vanitorio',         full:'Vanitorio',                           start:236},
+  {name:'Mamparas baño',     full:'Mamparas de baño',                    start:265},
+  {name:'Calefón',           full:'Calefón',                             start:294},
+  {name:'Espejos baños',     full:'Espejos sobrepuestos baños',          start:323},
+  {name:'WC descarga muro',  full:'WC descarga a muro',                  start:352},
+  {name:'Cornisas',          full:'Cornisas',                            start:381},
+  {name:'Pintura cielos',    full:'Pintura cielos (húmedos y secos)',    start:410},
 ];
 
+// AC: same structure as before
 const AC_SECS = [
-  {name:'Pasillo',             batch:1, fields:['Frentes','Yesos','Cielo falso (estr.)','Canalización','PPR','Cielo falso (planch.)','Pavimentos','Puertas (2)','Textura'],       cols:[2,3,4,5,6,7,8,9,10]},
-  {name:'Sala medidores AP',   batch:1, fields:['Tab 1','Inst. elec','Tab 2','Matriz vertical','1° pintura','Manifol','2° pintura'],                                             cols:[14,15,16,17,18,19,20]},
-  {name:'Sala eléc. y teleco', batch:1, fields:['Tab 1','Inst. elec','Tab 2','1° pintura','Puertas','Cerraduras','Bandejas horiz.','Bandejas vert.','Medidores','2° pintura'],   cols:[24,25,26,27,28,29,30,31,32,33]},
-  {name:'Closet basura',       batch:2, fields:['Ductos 1','Ductos 2,3,4','Tolvas','Tab 1','Tab 2','1° pintura','Rem. porcelanato','Puertas','Closet','2° pintura'],             cols:[2,3,4,5,6,7,8,9,10,11]},
-  {name:'Gas',                 batch:2, fields:['Tab 1','Tab 2','1° pintura','Placa','Gabinetes','Puertas','Medidores','Vertical','2° pintura'],                                 cols:[15,16,17,18,19,20,21,22,23]},
-  {name:'Caja escala',         batch:2, fields:['Yesos','Tab 1','Inst. elec','Tab 2','Puertas','1° pintura','2° pintura'],                                                       cols:[27,28,29,30,31,32,33]},
+  {name:'Pasillo',             batch:1, fields:['Frentes','Yesos','Cielo falso (estr.)','Canalización','PPR','Cielo falso (planch.)','Pavimentos','Puertas (2)','Textura'],     cols:[2,3,4,5,6,7,8,9,10]},
+  {name:'Sala medidores AP',   batch:1, fields:['Tab 1','Inst. elec','Tab 2','Matriz vertical','1° pintura','Manifol','2° pintura'],                                           cols:[14,15,16,17,18,19,20]},
+  {name:'Sala eléc. y teleco', batch:1, fields:['Tab 1','Inst. elec','Tab 2','1° pintura','Puertas','Cerraduras','Bandejas horiz.','Bandejas vert.','Medidores','2° pintura'], cols:[24,25,26,27,28,29,30,31,32,33]},
+  {name:'Closet basura',       batch:2, fields:['Ductos 1','Ductos 2,3,4','Tolvas','Tab 1','Tab 2','1° pintura','Rem. porcelanato','Puertas','Closet','2° pintura'],           cols:[2,3,4,5,6,7,8,9,10,11]},
+  {name:'Gas',                 batch:2, fields:['Tab 1','Tab 2','1° pintura','Placa','Gabinetes','Puertas','Medidores','Vertical','2° pintura'],                               cols:[15,16,17,18,19,20,21,22,23]},
+  {name:'Caja escala',         batch:2, fields:['Yesos','Tab 1','Inst. elec','Tab 2','Puertas','1° pintura','2° pintura'],                                                     cols:[27,28,29,30,31,32,33]},
 ];
 
-// State
+// ── State ─────────────────────────────────────────────────────────────────
 const vals  = {};
 const dirty = {};
-let curPiso = null;
-let curTab  = 'dptos';
-let loaded  = false;
+let curPiso = null, curTab = 'dptos', loaded = false;
 
 function initState(){
   PISOS.forEach(p=>{
@@ -179,31 +186,30 @@ function initState(){
   });
 }
 
-// ── Load data from Sheet ──────────────────────────────────────────────────
+// ── Load from Sheet ───────────────────────────────────────────────────────
 async function loadFromSheet(){
   setSyncState('loading','Cargando...');
   try {
     const resp = await fetch(WEBAPP+'?t='+Date.now());
     const data = await resp.json();
 
-    // Populate vals with Sheet data
     PISOS.forEach(p=>{
       const dp = p===29?DPTOS_P29:DPTOS_ALL;
       // Dptos
-      if(data.dptos && data.dptos[p]){
+      if(data.dptos?.[p]){
         PARTIDAS.forEach(({full})=>{
           dp.forEach(d=>{
-            const v = data.dptos[p]?.[full]?.[d];
+            const v = data.dptos[p][full]?.[d];
             vals[p].dptos[full][d] = (v===null||v===undefined)?null:Number(v);
           });
         });
       }
       // AC
-      if(data.ac && data.ac[p]){
-        AC_SECS.forEach(({name,cols},si)=>{
+      if(data.ac?.[p]){
+        AC_SECS.forEach(({name,cols,fields})=>{
           cols.forEach((col,ci)=>{
-            const f = AC_SECS[si].fields[ci];
-            const v = data.ac[p]?.[name]?.[col];
+            const f = fields[ci];
+            const v = data.ac[p][name]?.[col];
             vals[p].ac[name][f] = (v===null||v===undefined)?null:Number(v);
           });
         });
@@ -214,53 +220,47 @@ async function loadFromSheet(){
     setSyncState('ok','Sincronizado');
     enableUI();
   } catch(err){
-    console.error('Load error:',err);
+    console.error(err);
     setSyncState('error','Sin conexión');
     showError();
   }
 }
 
-function setSyncState(state, lbl){
-  const dot = document.getElementById('sync-dot');
-  const l   = document.getElementById('sync-lbl');
-  dot.className = 'sync-dot'+(state==='loading'?' loading':state==='error'?' error':'');
-  l.textContent = lbl;
+function setSyncState(state,lbl){
+  document.getElementById('sync-dot').className='sync-dot'+(state==='loading'?' loading':state==='error'?' error':'');
+  document.getElementById('sync-lbl').textContent=lbl;
 }
 
 function enableUI(){
-  const sel = document.getElementById('piso-sel');
-  sel.disabled = false;
-  sel.innerHTML = '<option value="">— Seleccionar piso —</option>';
+  const sel=document.getElementById('piso-sel');
+  sel.disabled=false;
+  sel.innerHTML='<option value="">— Seleccionar piso —</option>';
   PISOS.forEach(p=>{
     const o=document.createElement('option');
-    o.value=p;
-    o.textContent='Piso '+p+(p===29?' (D-G)':'');
+    o.value=p; o.textContent='Piso '+p+(p===29?' (D-G)':'');
     sel.appendChild(o);
   });
-  document.querySelectorAll('.tab').forEach(t=>t.disabled=false);
   document.getElementById('main').innerHTML=`<div class="empty">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21h18M9 21V7l6-4v18M9 10H5v11M9 10V7M15 7h4v14"/></svg>
-    <p>Selecciona un piso para comenzar</p>
+    <p>Selecciona un piso para ver el avance</p>
   </div>`;
 }
 
 function showError(){
   document.getElementById('main').innerHTML=`<div class="error-screen">
-    <p>No se pudo conectar con Google Sheets.<br>Verifica tu conexión a internet.</p>
+    <p>No se pudo conectar con Google Sheets.<br>Verifica tu conexión a internet e intenta de nuevo.</p>
     <button class="btn-retry" onclick="retryLoad()">Reintentar</button>
   </div>`;
 }
 
 function retryLoad(){
-  document.getElementById('main').innerHTML=`<div class="loading-screen">
-    <div class="big-spinner"></div><p>Reconectando...</p>
-  </div>`;
+  document.getElementById('main').innerHTML=`<div class="loading-screen"><div class="big-spinner"></div><p>Reconectando...</p></div>`;
   loadFromSheet();
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────
-function getV(p,type,k1,k2){ return vals[p]?.[type]?.[k1]?.[k2]??null; }
-function isDirty(p,type,k1,k2){ return !!dirty[p]?.[type]?.[k1]?.[k2]; }
+function getV(p,t,k1,k2){ return vals[p]?.[t]?.[k1]?.[k2]??null; }
+function isDirty(p,t,k1,k2){ return !!dirty[p]?.[t]?.[k1]?.[k2]; }
 
 function cellClass(v,d){
   if(d) return 'c-mod';
@@ -270,7 +270,6 @@ function cellClass(v,d){
   if(n>=1)   return 'c-pend';
   return 'c-crit';
 }
-
 function calcAvg(vs){
   const f=vs.filter(v=>v!==null&&v!==undefined);
   if(!f.length) return null;
@@ -286,9 +285,9 @@ function pendTotal(p,type){
   let c=0;
   if(type==='dptos'){
     const dp=p===29?DPTOS_P29:DPTOS_ALL;
-    PARTIDAS.forEach(({full})=>dp.forEach(d=>{const v=getV(p,'dptos',full,d);if(v===null||parseFloat(v)<100)c++;}));
+    PARTIDAS.forEach(({full})=>dp.forEach(d=>{ const v=getV(p,'dptos',full,d); if(v===null||parseFloat(v)<100)c++; }));
   } else {
-    AC_SECS.forEach(({name,fields})=>fields.forEach(f=>{const v=getV(p,'ac',name,f);if(v===null||parseFloat(v)<100)c++;}));
+    AC_SECS.forEach(({name,fields})=>fields.forEach(f=>{ const v=getV(p,'ac',name,f); if(v===null||parseFloat(v)<100)c++; }));
   }
   return c;
 }
@@ -298,10 +297,9 @@ function totalFields(p,type){
 }
 
 // ── Toast ─────────────────────────────────────────────────────────────────
-function toast(msg, type=''){
+function toast(msg,type=''){
   const t=document.getElementById('toast');
-  t.textContent=msg;
-  t.className='toast'+(type?' '+type:'');
+  t.textContent=msg; t.className='toast'+(type?' '+type:'');
   setTimeout(()=>t.classList.add('show'),10);
   setTimeout(()=>t.classList.remove('show'),3200);
 }
@@ -319,12 +317,17 @@ function buildDptos(){
   const clr=pct>=80?'#166534':pct>=50?'#854D0E':'#991B1B';
   const bg =pct>=80?'#4CAF50':pct>=50?'#FF9800':'#f44336';
 
-  const thCols=dp.map(d=>`<th style="width:40px">${d}</th>`).join('');
-  const rows=PARTIDAS.map(({name,full})=>{
-    const vs=dp.map(d=>getV(p,'dptos',full,d));
-    const avg=calcAvg(vs);
-    const cells=dp.map((d,i)=>{
-      const v=vs[i], dir=isDirty(p,'dptos',full,d);
+  // All dptos for header, mark N/A for piso 29
+  const allDptos = DPTOS_ALL;
+  const thCols = allDptos.map(d=>`<th style="width:38px">${d}</th>`).join('');
+
+  const rows = PARTIDAS.map(({name,full})=>{
+    const vs = dp.map(d=>getV(p,'dptos',full,d));
+    const avg = calcAvg(vs);
+    const cells = allDptos.map(d=>{
+      const isNA = p===29 && ['A','B','C'].includes(d);
+      if(isNA) return `<td class="td-inp na"><input type="number" value="N/A" disabled></td>`;
+      const v=getV(p,'dptos',full,d), dir=isDirty(p,'dptos',full,d);
       const cls=cellClass(v,dir);
       const disp=v!==null?v:'';
       return `<td class="td-inp"><input type="number" min="0" max="100" step="1" class="${cls}"
@@ -370,20 +373,19 @@ function buildAC(){
   const bg =pct>=80?'#4CAF50':pct>=50?'#FF9800':'#f44336';
 
   const secs=AC_SECS.map(({name,fields})=>{
-    const secPend=fields.filter(f=>{const v=getV(p,'ac',name,f);return v===null||parseFloat(v)<100;}).length;
+    const secPend=fields.filter(f=>{ const v=getV(p,'ac',name,f); return v===null||parseFloat(v)<100; }).length;
     const rows=fields.map(f=>{
       const v=getV(p,'ac',name,f), dir=isDirty(p,'ac',name,f);
       const pctVal=v!==null?Math.round(parseFloat(v)*100):null;
       const cls=cellClass(pctVal,dir);
       const disp=pctVal!==null?pctVal:'';
-      const complete=pctVal!==null&&pctVal>=100;
       return `<tr>
         <td class="td-part">${f}</td>
         <td class="td-inp"><input type="number" min="0" max="100" step="1" class="${cls}"
           value="${disp}" placeholder="—"
           data-type="ac" data-k1="${name}" data-k2="${f}"
           oninput="handleInputAC(this,${p})" onblur="handleBlur(this)"></td>
-        <td class="td-stat">${complete?'✅':'⬜'}</td>
+        <td class="td-stat">${pctVal>=100?'✅':'⬜'}</td>
       </tr>`;
     }).join('');
     return `<div class="ac-block">
@@ -420,23 +422,23 @@ function buildAC(){
 function handleInput(inp,p){
   let v=inp.value===''?null:parseFloat(inp.value);
   if(v!==null){if(v<0)v=0;if(v>100)v=100;}
-  const {type,k1,k2}=inp.dataset;
-  vals[p][type][k1][k2]=v;
-  dirty[p][type][k1][k2]=true;
+  const {k1,k2}=inp.dataset;
+  vals[p].dptos[k1][k2]=v;
+  dirty[p].dptos[k1][k2]=true;
   inp.className=cellClass(v,true);
-  updateStatsLive(p);
+  updateStatsLive(p,'dptos');
 }
 
 function handleInputAC(inp,p){
   let pct=inp.value===''?null:parseFloat(inp.value);
   if(pct!==null){if(pct<0)pct=0;if(pct>100)pct=100;}
-  const {type,k1,k2}=inp.dataset;
-  vals[p][type][k1][k2]=pct!==null?pct/100:null;
-  dirty[p][type][k1][k2]=true;
+  const {k1,k2}=inp.dataset;
+  vals[p].ac[k1][k2]=pct!==null?pct/100:null;
+  dirty[p].ac[k1][k2]=true;
   inp.className=cellClass(pct,true);
   const row=inp.closest('tr');
   if(row){const st=row.querySelector('.td-stat');if(st)st.textContent=pct>=100?'✅':'⬜';}
-  updateStatsLive(p);
+  updateStatsLive(p,'ac');
 }
 
 function handleBlur(inp){
@@ -446,8 +448,7 @@ function handleBlur(inp){
   inp.value=Math.min(100,Math.max(0,v));
 }
 
-function updateStatsLive(p){
-  const type=curTab==='dptos'?'dptos':'ac';
+function updateStatsLive(p,type){
   const tot=totalFields(p,type), pend=pendTotal(p,type), done=tot-pend;
   const pct=Math.round((done/tot)*100);
   const clr=pct>=80?'#166534':pct>=50?'#854D0E':'#991B1B';
@@ -460,11 +461,13 @@ function updateStatsLive(p){
   if(pf){pf.style.width=pct+'%';pf.style.background=bg;}
   if(type==='dptos'){
     const dp=p===29?DPTOS_P29:DPTOS_ALL;
-    const avgs=document.querySelectorAll('td.td-avg');
-    PARTIDAS.forEach(({full},i)=>{
+    document.querySelectorAll('td.td-avg').forEach((td,i)=>{
+      if(i>=PARTIDAS.length) return;
+      const {full}=PARTIDAS[i];
       const vs=dp.map(d=>getV(p,'dptos',full,d));
       const avg=calcAvg(vs);
-      if(avgs[i]){avgs[i].textContent=avg!==null?avg+'%':'—';avgs[i].style.color=avgColor(avg);}
+      td.textContent=avg!==null?avg+'%':'—';
+      td.style.color=avgColor(avg);
     });
   }
 }
@@ -473,26 +476,25 @@ function updateStatsLive(p){
 async function save(){
   const p=curPiso;
   const dp=p===29?DPTOS_P29:DPTOS_ALL;
-  const DPTO_COL={A:6,B:7,C:8,D:9,E:10,F:11,G:12};
   const updates=[];
 
   PARTIDAS.forEach(({full,start})=>{
-    const excelRow=start+(29-p);
+    const row=start+(29-p);
     dp.forEach(d=>{
       if(isDirty(p,'dptos',full,d)){
         const v=getV(p,'dptos',full,d);
-        if(v!==null) updates.push({sheet:'Dptos ', row:excelRow, col:DPTO_COL[d], value:v});
+        if(v!==null) updates.push({sheet:'Dptos', row, col:DPTO_COL[d], value:v});
       }
     });
   });
 
   AC_SECS.forEach(({name,batch,fields,cols})=>{
     const base=batch===1?3:37;
-    const excelRow=base+(29-p);
+    const row=base+(29-p);
     fields.forEach((f,i)=>{
       if(isDirty(p,'ac',name,f)){
         const v=getV(p,'ac',name,f);
-        if(v!==null) updates.push({sheet:'Ac', row:excelRow, col:cols[i], value:v});
+        if(v!==null) updates.push({sheet:'Ac', row, col:cols[i], value:v});
       }
     });
   });
@@ -500,22 +502,21 @@ async function save(){
   if(!updates.length){toast('No hay cambios nuevos para guardar');return;}
 
   const btn=document.getElementById('btn-save');
-  if(btn){btn.disabled=true;btn.innerHTML='<div class="spinner"></div> Guardando en Sheet...';}
+  if(btn){btn.disabled=true;btn.innerHTML='<div class="spinner"></div> Guardando...';}
   setSyncState('loading','Guardando...');
 
   try {
     await fetch(WEBAPP,{
-      method:'POST',
-      mode:'no-cors',
+      method:'POST', mode:'no-cors',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({piso:p, updates})
     });
 
-    // Limpiar dirty
-    PARTIDAS.forEach(({full})=>dp.forEach(d=>{if(dirty[p].dptos[full])dirty[p].dptos[full][d]=false;}));
-    AC_SECS.forEach(({name,fields})=>fields.forEach(f=>{if(dirty[p].ac[name])dirty[p].ac[name][f]=false;}));
+    // Clear dirty flags
+    PARTIDAS.forEach(({full})=>dp.forEach(d=>{ if(dirty[p].dptos[full]) dirty[p].dptos[full][d]=false; }));
+    AC_SECS.forEach(({name,fields})=>fields.forEach(f=>{ if(dirty[p].ac[name]) dirty[p].ac[name][f]=false; }));
 
-    // Actualizar colores celdas de azul → color real
+    // Update cell colors
     document.querySelectorAll('input.c-mod').forEach(inp=>{
       const {type,k1,k2}=inp.dataset;
       const v=type==='ac'
@@ -525,7 +526,7 @@ async function save(){
     });
 
     setSyncState('ok','Sincronizado');
-    toast(`✓ ${updates.length} celda${updates.length!==1?'s':''} guardada${updates.length!==1?'s':''} en piso ${p}`,'ok');
+    toast(`✓ ${updates.length} celda${updates.length!==1?'s':''} guardada${updates.length!==1?'s':''} — piso ${p}`,'ok');
   } catch(err){
     setSyncState('error','Error');
     toast('Error al guardar. Revisa tu conexión.','err');
@@ -543,11 +544,8 @@ document.getElementById('piso-sel').addEventListener('change',e=>{
   render();
 });
 document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
-  if(t.disabled) return;
   document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
-  t.classList.add('active');
-  curTab=t.dataset.tab;
-  render();
+  t.classList.add('active'); curTab=t.dataset.tab; render();
 }));
 
 initState();
