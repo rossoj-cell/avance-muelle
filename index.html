@@ -518,7 +518,7 @@ async function save(){
   try {
     await fetch(WEBAPP,{
       method:'POST', mode:'no-cors',
-      headers:{'Content-Type':'application/json'},
+      headers:{'Content-Type':'text/plain'},
       body:JSON.stringify({piso:p, updates})
     });
 
