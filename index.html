@@ -504,7 +504,7 @@ async function save(){
       if(isDirty(p,'ac',name,f)){
         const v=getV(p,'ac',name,f);
         // cols are 0-indexed in our mapping; Excel cols are 1-indexed
-        if(v!==null) updates.push({sheet:'Ac', row:excelRow, col:cols[i], value:v});
+        if(v!==null) updates.push({sheet:'Ac', row:excelRow, col:cols[i]+1, value:v});
       }
     });
   });
