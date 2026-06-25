@@ -516,11 +516,10 @@ async function save(){
   setSyncState('loading','Guardando...');
 
   try {
-    await fetch(WEBAPP,{
-      method:'POST', mode:'no-cors',
-      headers:{'Content-Type':'text/plain'},
-      body:JSON.stringify({piso:p, updates})
-    });
+    const payload = encodeURIComponent(JSON.stringify({piso:p, updates}));
+    const saveResp = await fetch(WEBAPP+'?action=save&data='+payload+'&t='+Date.now());
+    const saveJson = await saveResp.json();
+    if(saveJson.status !== 'ok') throw new Error(saveJson.msg||'Error desconocido');
 
     // Clear dirty flags
     PARTIDAS.forEach(({full})=>dp.forEach(d=>{ if(dirty[p].dptos[full]) dirty[p].dptos[full][d]=false; }));
