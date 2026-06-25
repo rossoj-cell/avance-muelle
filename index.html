@@ -133,7 +133,7 @@ const PISOS = Array.from({length:28},(_,i)=>29-i); // 29,28,...,2
 
 const DPTOS_ALL = ['A','B','C','D','E','F','G'];
 const DPTOS_P29 = ['D','E','F','G'];
-const DPTO_COL  = {A:6,B:7,C:8,D:9,E:10,F:11,G:12};
+const DPTO_COL  = {A:5,B:6,C:7,D:8,E:9,F:10,G:11};
 
 const PARTIDAS = [
   {name:'Porcelanato',       full:'Porcelanato deptos',                  start:4},
@@ -497,14 +497,14 @@ async function save(){
   });
 
   AC_SECS.forEach(({name,batch,fields,cols})=>{
-    // batch1: Excel row = 32-p (piso 29=row3, piso 2=row30)
-    // batch2: Excel row = 65-p (piso 29=row36, piso 2=row63)
+    // batch1: rowIdx=31-p (0-based) → getRange row = 32-p (1-based)
+    // batch2: rowIdx=64-p (0-based) → getRange row = 65-p (1-based)
     const excelRow = batch===1 ? (32-p) : (65-p);
     fields.forEach((f,i)=>{
       if(isDirty(p,'ac',name,f)){
         const v=getV(p,'ac',name,f);
         // cols are 0-indexed in our mapping; Excel cols are 1-indexed
-        if(v!==null) updates.push({sheet:'Ac', row:excelRow, col:cols[i]+1, value:v});
+        if(v!==null) updates.push({sheet:'Ac', row:excelRow, col:cols[i], value:v});
       }
     });
   });
